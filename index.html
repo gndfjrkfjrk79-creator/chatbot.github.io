@@ -1,5 +1,4 @@
-
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,6 +10,7 @@
         margin: auto;
         padding: 20px;
     }
+
     #chatbox {
         border: 1px solid #ccc;
         padding: 10px;
@@ -18,17 +18,28 @@
         overflow-y: auto;
         background: #f9f9f9;
     }
-    .user { color: blue; margin: 5px 0; }
-    .bot { color: green; margin: 5px 0; }
+
+    .user {
+        color: blue;
+        margin: 5px 0;
+    }
+
+    .bot {
+        color: green;
+        margin: 5px 0;
+    }
+
     #inputArea {
         display: flex;
         margin-top: 10px;
     }
+
     #message {
         flex: 1;
         padding: 10px;
         font-size: 16px;
     }
+
     button {
         padding: 10px 15px;
         font-size: 16px;
@@ -48,6 +59,46 @@
     <button onclick="sendMessage()">Send</button>
 </div>
 
-<script src="chat.js"></script>
+<script>
+function botReply(message) {
+    message = message.toLowerCase();
+
+    if (message.includes("hello") || message.includes("hi")) {
+        return "Hello! How can I help you today?";
+    }
+    if (message.includes("help")) {
+        return "Sure! Tell me what you need help with.";
+    }
+    if (message.includes("name")) {
+        return "I'm a simple AI chatbot running on GitHub Pages!";
+    }
+    if (message.includes("bye")) {
+        return "Goodbye! Have a great day!";
+    }
+
+    return "That's interesting! Tell me more.";
+}
+
+function sendMessage() {
+    const input = document.getElementById("message");
+    const chatbox = document.getElementById("chatbox");
+
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    // Add user message
+    chatbox.innerHTML += `<div class="user"><strong>You:</strong> ${userText}</div>`;
+
+    // Add bot response
+    const response = botReply(userText);
+    chatbox.innerHTML += `<div class="bot"><strong>Bot:</strong> ${response}</div>`;
+
+    // Clear input and scroll down
+    input.value = "";
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+</script>
+
 </body>
 </html>
+
